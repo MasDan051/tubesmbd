@@ -5,7 +5,7 @@ list_doctor = ['', 'dr. Nurita', 'dr. Yogi', 'dr. Wibowo', 'dr. Ulama', 'dr. Pin
 list_symptom = ['', 'male', 'female']
 
 conn = st.connection("postgresql", type="sql", 
-                     url=psql "postgresql://danielwicaksono051:************@ep-twilight-mountain-96096661.us-east-2.aws.neon.tech/daniel?sslmode=require")
+                     url=psql "postgresql://danielwicaksono051:Luk9rfRm3UcV@ep-twilight-mountain-96096661.us-east-2.aws.neon.tech")
 with conn.session as session:
     query = text('CREATE TABLE IF NOT EXISTS SCHEDULE (id serial, doctor_name varchar, patient_name varchar, gender char(25), \
                                                        symptom text, handphone varchar, address text, tanggal date);')
