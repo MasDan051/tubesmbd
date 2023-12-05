@@ -8,8 +8,8 @@ list_tob = ['', 'Novel', 'Buku Motivasi', 'Buku Referensi', 'Buku Sejarah', 'Buk
 conn = st.connection("postgresql", type="sql", 
                      url="postgresql://danielwicaksono051:Luk9rfRm3UcV@ep-twilight-mountain-96096661.us-east-2.aws.neon.tech/daniel")
 with conn.session as session:
-    query = text('CREATE TABLE IF NOT EXISTS campus_library (id serial, student_name char, gender char, type_of_book char, \
-                 title char, language_book char, author char, year_of_publication int, number_of_pages int, publisher char, ISBN char, tanggal_pinjam date);')
+    query = text('CREATE TABLE IF NOT EXISTS campus_library (id serial, student_name text, gender text, type_of_book text, \
+                 title text, language_book text, author text, year_of_publication text, number_of_pages text, publisher text, ISBN text, tanggal_pinjam date);')
     session.execute(query)
 
 st.header('SIMPLE CAMPUS LIBRARY SYSTEMS')
@@ -40,7 +40,7 @@ if page == "Edit Data":
         yob_lama = result["year_of_publication"]
         nop_lama = result["number_of_pages"]
         publisher_lama = result["publisher"]
-        isbn_lama = result["year_of_publication"]
+        isbn_lama = result["ISBN"]
         tanggal_pinjam_lama = result["tanggal_pinjam"]
 
         with st.expander(f'a.n. {student_name_lama}'):
@@ -57,7 +57,7 @@ if page == "Edit Data":
                 isbn_baru = st.text_input("ISBN", isbn_lama)
                 tanggal_pinjam_baru = st.date_input("tanggal_pinjam", tanggal_pinjam_lama)
                 
-                col1, col2 = st.columns([1, 6])
+                col1, col2 = st.columns([1, 12])
 
                 with col1:
                     if st.form_submit_button('UPDATE'):
