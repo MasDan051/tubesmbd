@@ -7,7 +7,7 @@ list_tob = ['', 'Novel', 'Buku Motivasi', 'Buku Referensi', 'Buku Sejarah', 'Buk
 
 conn = st.connection("postgresql", type="sql", 
                      url="postgresql://danielwicaksono051:Luk9rfRm3UcV@ep-twilight-mountain-96096661.us-east-2.aws.neon.tech/daniel")
-with conn.session as session:
+with conn.connect() as connection:
     query = text('CREATE TABLE IF NOT EXISTS campus_library (id serial, student_name text, gender text, type_of_book text, \
                  title text, language_book text, author text, year_of_publication int, number_of_pages int, publisher text, ISBN text, tanggal_pinjam date);')
     session.execute(query)
@@ -21,7 +21,7 @@ if page == "View Data":
 
 if page == "Edit Data":
     if st.button('Tambah Data'):
-        with conn.session as session:
+        with conn.connect() as connection:
             query = text('INSERT INTO campus_library (student_name, gender, type_of_book, title, \
                           language_book, author, year_of_publication, number_of_pages, publisher, ISBN, tanggal_pinjam) \
                           VALUES (:1, :2, :3, :4, :5, :6, :7, :8, :9, :10, :11);')
@@ -61,7 +61,7 @@ if page == "Edit Data":
 
                 with col1:
                     if st.form_submit_button('UPDATE'):
-                        with conn.session as session:
+                        with conn.connect() as connection:
                             query = text('UPDATE campus_library \
                                           SET student_name=:1, gender=:2, type_of_book=:3, title=:4, language_book=:5, \
                                           author=:6, year_of_publication=:7, number_of_pages=:8, publisher=:9, ISBN=:10, tanggal_pinjam=11 \
