@@ -10,7 +10,7 @@ conn = st.connection("postgresql", type="sql",
 with conn.connect() as connection:
     query = text('CREATE TABLE IF NOT EXISTS campus_library (id serial, student_name text, gender text, type_of_book text, \
                  title text, language_book text, author text, year_of_publication int, number_of_pages int, publisher text, ISBN text, tanggal_pinjam date);')
-    session.execute(query)
+    connection.execute(query)
 
 st.header('SIMPLE CAMPUS LIBRARY SYSTEMS')
 page = st.sidebar.selectbox("Pilih Menu", ["View Data","Edit Data"])
@@ -25,8 +25,8 @@ if page == "Edit Data":
             query = text('INSERT INTO campus_library (student_name, gender, type_of_book, title, \
                           language_book, author, year_of_publication, number_of_pages, publisher, ISBN, tanggal_pinjam) \
                           VALUES (:1, :2, :3, :4, :5, :6, :7, :8, :9, :10, :11);')
-            session.execute(query, {'1':'', '2':'', '3':'', '4':'', '5':'[]', '6':'', '7':'', '8':'', '9':'', '10':'', '11':None})
-            session.commit()
+            connection.execute(query, {'1':'', '2':'', '3':'', '4':'', '5':'[]', '6':'', '7':'', '8':'', '9':'', '10':'', '11':None})
+            connection.commit()
 
     data = conn.query('SELECT * FROM campus_library ORDER By id;', ttl="0")
     for _, result in data.iterrows():        
@@ -66,14 +66,14 @@ if page == "Edit Data":
                                           SET student_name=:1, gender=:2, type_of_book=:3, title=:4, language_book=:5, \
                                           author=:6, year_of_publication=:7, number_of_pages=:8, publisher=:9, ISBN=:10, tanggal_pinjam=11 \
                                           WHERE id=:12;')
-                            session.execute(query, {'1':student_name_baru, '2':gender_baru, '3':tob_baru, '4':title_baru, '5':str(language_book_baru), 
+                            connection.execute(query, {'1':student_name_baru, '2':gender_baru, '3':tob_baru, '4':title_baru, '5':str(language_book_baru), 
                                                      '6':author_baru, '7':yob_baru, '8':nop_baru, '9':publisher_baru, '10':isbn_baru, '11':tanggal_pinjam_baru, '12':id})
-                            session.commit()
+                            connection.commit()
                             st.experimental_rerun()
                 
                 with col2:
                     if st.form_submit_button('DELETE'):
                         query = text(f'DELETE FROM campus_library WHERE id=:1;')
-                        session.execute(query, {'1':id})
-                        session.commit()
+                        connection.execute(query, {'1':id})
+                        connection.commit()
                         st.experimental_rerun()
