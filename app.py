@@ -9,7 +9,7 @@ conn = st.connection("postgresql", type="sql",
                      url="postgresql://danielwicaksono051:Luk9rfRm3UcV@ep-twilight-mountain-96096661.us-east-2.aws.neon.tech/daniel")
 with conn.session as session:
     query = text('CREATE TABLE IF NOT EXISTS campus_library (id serial, student_name text, gender text, type_of_book text, \
-                 title text, language_book text, author text, year_of_publication text, number_of_pages text, publisher text, ISBN text, tanggal_pinjam date);')
+                 title text, language_book text, author text, year_of_publication int, number_of_pages int, publisher text, ISBN text, tanggal_pinjam date);')
     session.execute(query)
 
 st.header('SIMPLE CAMPUS LIBRARY SYSTEMS')
