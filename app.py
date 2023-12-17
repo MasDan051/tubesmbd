@@ -45,7 +45,7 @@ if page == "Edit Data":
 
         with st.expander(f'a.n. {student_name_lama}'):
             with st.form(f'data-{id}'):
-                student_name_baru = st.selectbox("student_name", list_students, list_students.index(student_name_lama))
+                student_name_baru = st.text_input("student_name", student_name_lama)
                 gender_baru = st.selectbox("gender", list_gender, list_gender.index(gender_lama))
                 tob_baru = st.selectbox("type_of_book", list_tob, list_tob.index(tob_lama))
                 title_baru = st.text_input("title", title_lama)
